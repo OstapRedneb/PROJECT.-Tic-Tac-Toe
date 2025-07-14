@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ПРОЕКТ. Крестики нолики", "ПРОЕКТ. Крестики нолики.csproj", "{507CB537-F353-459C-BE76-87A1E9471E09}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{507CB537-F353-459C-BE76-87A1E9471E09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{507CB537-F353-459C-BE76-87A1E9471E09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{507CB537-F353-459C-BE76-87A1E9471E09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{507CB537-F353-459C-BE76-87A1E9471E09}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9325257D-C6CC-4974-8946-60F13D4F7584}
+	EndGlobalSection
+EndGlobal
