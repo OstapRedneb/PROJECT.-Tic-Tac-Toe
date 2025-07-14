@@ -4,7 +4,7 @@ namespace ПРОЕКТ._Крестики_нолики
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] args) // Игра
         {
             while (true)
             {
@@ -53,19 +53,17 @@ namespace ПРОЕКТ._Крестики_нолики
                     {
                         if (isZerowNow) Console.WriteLine("Нолики победили!");
                         else Console.WriteLine("Крестики победили!");
-                        Console.WriteLine();
                         break;
                     }
                     if (k == 8)
                     {
                         Console.WriteLine("Ничья!");
-                        Console.WriteLine();
                     }
                     Console.WriteLine();
                 }
             }
         }
-        static bool CheckWiner(string[,] gameMap, bool isZeroNow) 
+        static bool CheckWiner(string[,] gameMap, bool isZeroNow) // Проверить поле на наличие выигрыша 
         {
             string findChar;
             if (isZeroNow) findChar = "O";
@@ -84,7 +82,7 @@ namespace ПРОЕКТ._Крестики_нолики
             if (countDiagonal1 == 3 || countDiagonal2 == 3) return true;
             return false;
         }
-        static string[,] FindAndChange(string[,] gameMap, string input, bool isZeroNow) 
+        static string[,] FindAndChange(string[,] gameMap, string input, bool isZeroNow) // Заменить в поле цифру на символ 
         {
             string result;
             if (isZeroNow) result = "O";
@@ -100,7 +98,7 @@ namespace ПРОЕКТ._Крестики_нолики
 
             return gameMap;
         }
-        static bool InputContains(string[,] gameMap, string input) 
+        static bool InputContains(string[,] gameMap, string input) // Проверить ввод пользователя на наличие существующего уже хода на поле 
         {
             for (int i = 0; i < gameMap.GetLength(0); i++)
             {
@@ -111,13 +109,16 @@ namespace ПРОЕКТ._Крестики_нолики
             }
             return false;
         }
-        static void PrintMap(string[,] gameMap) 
+        static void PrintMap(string[,] gameMap) // Вывод поля через пробелы 
         {
             for (int i = 0; i < gameMap.GetLength(0); i++) 
             {
                 for (int j = 0; j < gameMap.GetLength(1); j++) 
                 {
+                    if (gameMap[i, j] == "X") Console.ForegroundColor = ConsoleColor.Red;
+                    if (gameMap[i, j] == "O") Console.ForegroundColor = ConsoleColor.Blue;
                     Console.Write(gameMap[i, j] + " ");
+                    Console.ResetColor();
                 }
                 Console.WriteLine();
             }
