@@ -18,6 +18,7 @@ namespace ПРОЕКТ._Крестики_нолики
                 while (true)
                 {
                     input = Console.ReadLine();
+                    Console.Clear();
                     if (!(input == "1" || input == "2")) continue;
                     if (input == "2") flag = true;
                     break;
@@ -43,6 +44,7 @@ namespace ПРОЕКТ._Крестики_нолики
                     while (true)
                     {
                         input = Console.ReadLine();
+                        Console.Clear();
                         if (!(input == "1" || input == "2" || input == "3" || input == "4" || input == "5" || input == "6" || input == "7" || input == "8" || input == "9")) continue;
                         if (!InputContains(gameMap, input)) continue;
                         break;
@@ -51,12 +53,21 @@ namespace ПРОЕКТ._Крестики_нолики
 
                     if (CheckWiner(gameMap, isZerowNow)) 
                     {
-                        if (isZerowNow) Console.WriteLine("Нолики победили!");
-                        else Console.WriteLine("Крестики победили!");
+                        if (isZerowNow)
+                        {
+                            PrintMap(gameMap);
+                            Console.WriteLine("Нолики победили!");
+                        }
+                        else
+                        {
+                            PrintMap(gameMap);
+                            Console.WriteLine("Крестики победили!");
+                        }
                         break;
                     }
                     if (k == 8)
                     {
+                        PrintMap(gameMap);
                         Console.WriteLine("Ничья!");
                     }
                     Console.WriteLine();
@@ -77,6 +88,7 @@ namespace ПРОЕКТ._Крестики_нолики
                 if (gameMap[i, i] == findChar) countDiagonal1++;
                 if (gameMap[i, 2 - i] == findChar) countDiagonal2++;
                 if (gameMap[i, 0] == gameMap[i, 1] && gameMap[i, 1] == gameMap[i, 2]) return true;
+                if (gameMap[0, i] == gameMap[1, i] && gameMap[0, i] == gameMap[2, i]) return true;
             }
 
             if (countDiagonal1 == 3 || countDiagonal2 == 3) return true;
