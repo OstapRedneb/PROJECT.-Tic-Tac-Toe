@@ -18,7 +18,6 @@ namespace ПРОЕКТ._Крестики_нолики
                 while (true)
                 {
                     input = Console.ReadLine();
-                    Console.Clear();
                     if (!(input == "1" || input == "2")) continue;
                     if (input == "2") flag = true;
                     break;
@@ -44,7 +43,6 @@ namespace ПРОЕКТ._Крестики_нолики
                     while (true)
                     {
                         input = Console.ReadLine();
-                        Console.Clear();
                         if (!(input == "1" || input == "2" || input == "3" || input == "4" || input == "5" || input == "6" || input == "7" || input == "8" || input == "9")) continue;
                         if (!InputContains(gameMap, input)) continue;
                         break;
