@@ -8,126 +8,143 @@ namespace ПРОЕКТ._Крестики_нолики
         {
             while (true)
             {
-                bool flag = false;
-                Console.WriteLine("Крестики нолики");
+                if (!IsStartGame()) break;
+
                 Console.WriteLine();
-                Console.WriteLine("1. Начать игру");
-                Console.WriteLine("2. Выйти из игры");
-                Console.WriteLine();
+
+                string[,] map = new string[3, 3] 
+                {
+                    {"1", "2", "3"}, 
+                    {"4", "5", "6"}, 
+                    {"7", "8", "9"} 
+                };
+
                 string input;
-                while (true)
-                {
-                    input = Console.ReadLine();
-                    if (!(input == "1" || input == "2")) continue;
-                    if (input == "2") flag = true;
-                    break;
-                }
-                if (flag) break;
-
-                Console.WriteLine();
-
-                string[,] gameMap = new string[3, 3] { {"1", "2", "3"}, {"4", "5", "6"}, {"7", "8", "9"} };
-
                 bool isZerowNow;
-                for (int k = 0; k < 9; k++) 
+
+                for (int move = 1; move <= 9; move++) 
                 {
-                    if (k % 2 == 0) isZerowNow = false;
+                    if (move % 2 != 0) isZerowNow = false;
                     else isZerowNow = true;
                     
                     if (isZerowNow) Console.WriteLine("Ходят нолики");
                     else Console.WriteLine("Ходят крестики");
-                    PrintMap(gameMap);
+
+                    PrintMap(map);
                     Console.WriteLine("Введите цифру вашего хода:");
                     Console.WriteLine();
 
                     while (true)
                     {
                         input = Console.ReadLine();
-                        if (!(input == "1" || input == "2" || input == "3" || input == "4" || input == "5" || input == "6" || input == "7" || input == "8" || input == "9")) continue;
-                        if (!InputContains(gameMap, input)) continue;
+                        if (!(input == "1" || input == "2" || input == "3" || input == "4" || input == "5" || input == "6" || input == "7" || input == "8" || input == "9"))
+                        {
+                            Console.WriteLine("Неверный ввод. Пожалуйста, введите цифру от 1 до 9.");
+                            continue;
+                        }
+                        if (!InputContains(map, input)) 
+                        {
+                            Console.WriteLine("Неверный ввод. Пожалуйста, введите цифру пустой ячейки.");
+                            continue;
+                        }
                         break;
                     }
-                    gameMap = FindAndChange(gameMap, input, isZerowNow);
+                    map = FindAndChange(map, input, isZerowNow);
 
-                    if (CheckWiner(gameMap, isZerowNow)) 
+                    if (CheckWiner(map)) 
                     {
+                        PrintMap(map);
                         if (isZerowNow)
                         {
-                            PrintMap(gameMap);
                             Console.WriteLine("Нолики победили!");
                         }
                         else
                         {
-                            PrintMap(gameMap);
                             Console.WriteLine("Крестики победили!");
                         }
+                        Console.WriteLine();
                         break;
                     }
-                    if (k == 8)
+                    if (move == 9)
                     {
-                        PrintMap(gameMap);
+                        PrintMap(map);
                         Console.WriteLine("Ничья!");
                     }
                     Console.WriteLine();
                 }
             }
         }
-        static bool CheckWiner(string[,] gameMap, bool isZeroNow) // Проверить поле на наличие выигрыша 
+        static bool IsStartGame() 
         {
-            string findChar;
-            if (isZeroNow) findChar = "O";
-            else findChar = "X";
-
-            int countDiagonal1 = 0;
-            int countDiagonal2 = 0;
-
-            for (int i = 0; i < gameMap.GetLength(0); i++)
+            Console.WriteLine("Крестики нолики");
+            Console.WriteLine();
+            Console.WriteLine("1. Начать игру");
+            Console.WriteLine("2. Выйти из игры");
+            Console.WriteLine();
+            while (true)
             {
-                if (gameMap[i, i] == findChar) countDiagonal1++;
-                if (gameMap[i, 2 - i] == findChar) countDiagonal2++;
-                if (gameMap[i, 0] == gameMap[i, 1] && gameMap[i, 1] == gameMap[i, 2]) return true;
-                if (gameMap[0, i] == gameMap[1, i] && gameMap[0, i] == gameMap[2, i]) return true;
+                string input = Console.ReadLine();
+                if (!(input == "1" || input == "2"))
+                {
+                    Console.WriteLine("Неверный ввод. Пожалуйста, введите 1 или 2.");
+                    continue;
+                }
+                if (input == "2") return false;
+                break;
             }
+            return true;
+        }
+        static bool CheckWiner(string[,] map) // Проверить поле на наличие выигрыша 
+        {
+            if (map[0, 0] == map[1, 1] && map[0, 0] == map[2, 2]) return true;
+            if (map[0, 2] == map[1, 1] && map[0, 2] == map[2, 0]) return true;
 
-            if (countDiagonal1 == 3 || countDiagonal2 == 3) return true;
+            if (map[0, 0] == map[0, 1] && map[0, 0] == map[0, 2]) return true;
+            if (map[1, 0] == map[1, 1] && map[1, 0] == map[1, 2]) return true;
+            if (map[2, 0] == map[2, 1] && map[2, 0] == map[2, 2]) return true;
+
+            if (map[0, 0] == map[1, 0] && map[0, 0] == map[2, 0]) return true;
+            if (map[0, 1] == map[1, 1] && map[0, 1] == map[2, 1]) return true;
+            if (map[0, 2] == map[1, 2] && map[0, 2] == map[2, 2]) return true;
+
             return false;
         }
-        static string[,] FindAndChange(string[,] gameMap, string input, bool isZeroNow) // Заменить в поле цифру на символ 
+        static string[,] FindAndChange(string[,] map, string inputCellNumber, bool isZeroNow) // Заменить в поле цифру на символ 
         {
             string result;
             if (isZeroNow) result = "O";
             else result = "X";
 
-            for (int i = 0; i < gameMap.GetLength(0); i++)
+            for (int i = 0; i < map.GetLength(0); i++)
             {
-                for (int j = 0; j < gameMap.GetLength(1); j++)
+                for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    if (gameMap[i, j] == input) gameMap[i, j] = result;
+                    if (map[i, j] == inputCellNumber) map[i, j] = result;
                 }
             }
 
-            return gameMap;
+            return map;
         }
-        static bool InputContains(string[,] gameMap, string input) // Проверить ввод пользователя на наличие существующего уже хода на поле 
+        static bool InputContains(string[,] map, string input) // Проверить ввод пользователя на наличие существующего уже хода на поле 
         {
-            for (int i = 0; i < gameMap.GetLength(0); i++)
+            for (int i = 0; i < map.GetLength(0); i++)
             {
-                for (int j = 0; j < gameMap.GetLength(1); j++)
+                for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    if (gameMap[i, j] == input) return true;
+                    if (map[i, j] == input) return true;
                 }
             }
             return false;
         }
-        static void PrintMap(string[,] gameMap) // Вывод поля через пробелы 
+        static void PrintMap(string[,] map) // Вывод поля через пробелы 
         {
-            for (int i = 0; i < gameMap.GetLength(0); i++) 
+            for (int i = 0; i < map.GetLength(0); i++) 
             {
-                for (int j = 0; j < gameMap.GetLength(1); j++) 
+                for (int j = 0; j < map.GetLength(1); j++) 
                 {
-                    if (gameMap[i, j] == "X") Console.ForegroundColor = ConsoleColor.Red;
-                    if (gameMap[i, j] == "O") Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.Write(gameMap[i, j] + " ");
+                    if (map[i, j] == "X") Console.ForegroundColor = ConsoleColor.Red;
+                    if (map[i, j] == "O") Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.Write(map[i, j] + " ");
                     Console.ResetColor();
                 }
                 Console.WriteLine();
