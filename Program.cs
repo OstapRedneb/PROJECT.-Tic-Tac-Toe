@@ -19,7 +19,6 @@ namespace ПРОЕКТ._Крестики_нолики
                     {"7", "8", "9"} 
                 };
 
-                string input;
                 bool isZerowNow;
 
                 for (int move = 1; move <= 9; move++) 
@@ -34,26 +33,14 @@ namespace ПРОЕКТ._Крестики_нолики
                     Console.WriteLine("Введите цифру вашего хода:");
                     Console.WriteLine();
 
-                    while (true)
-                    {
-                        input = Console.ReadLine();
-                        if (!(input == "1" || input == "2" || input == "3" || input == "4" || input == "5" || input == "6" || input == "7" || input == "8" || input == "9"))
-                        {
-                            Console.WriteLine("Неверный ввод. Пожалуйста, введите цифру от 1 до 9.");
-                            continue;
-                        }
-                        if (!InputContains(map, input)) 
-                        {
-                            Console.WriteLine("Неверный ввод. Пожалуйста, введите цифру пустой ячейки.");
-                            continue;
-                        }
-                        break;
-                    }
-                    map = FindAndChange(map, input, isZerowNow);
+                    string input = GetPlayerInput();
 
-                    if (CheckWiner(map)) 
+                    map = MakeTheMove(map, input, isZerowNow);
+
+                    if (IsExistWinner(map)) 
                     {
                         PrintMap(map);
+
                         if (isZerowNow)
                         {
                             Console.WriteLine("Нолики победили!");
@@ -62,6 +49,7 @@ namespace ПРОЕКТ._Крестики_нолики
                         {
                             Console.WriteLine("Крестики победили!");
                         }
+
                         Console.WriteLine();
                         break;
                     }
@@ -95,7 +83,25 @@ namespace ПРОЕКТ._Крестики_нолики
                 Console.WriteLine("Неверный ввод. Пожалуйста, введите 1 или 2.");
             }
         }
-        static bool CheckWiner(string[,] map) // Проверить поле на наличие выигрыша 
+        static string GetPlayerInput() 
+        {
+            while (true)
+            {
+                string input = Console.ReadLine();
+                if (!(input == "1" || input == "2" || input == "3" || input == "4" || input == "5" || input == "6" || input == "7" || input == "8" || input == "9"))
+                {
+                    Console.WriteLine("Неверный ввод. Пожалуйста, введите цифру от 1 до 9.");
+                    continue;
+                }
+                if (!IsMoveCorrect(map, input))
+                {
+                    Console.WriteLine("Неверный ввод. Пожалуйста, введите цифру пустой ячейки.");
+                    continue;
+                }
+                return input;
+            }
+        }
+        static bool IsExistWinner(string[,] map) // Проверить поле на наличие выигрыша 
         {
             if (map[0, 0] == map[1, 1] && map[0, 0] == map[2, 2]) return true;
             if (map[0, 2] == map[1, 1] && map[0, 2] == map[2, 0]) return true;
@@ -110,23 +116,27 @@ namespace ПРОЕКТ._Крестики_нолики
 
             return false;
         }
-        static string[,] FindAndChange(string[,] map, string inputCellNumber, bool isZeroNow) // Заменить в поле цифру на символ 
+        static string[,] MakeTheMove(string[,] map, string cellNumber, bool isZeroNow) // Заменить в поле цифру на символ 
         {
-            string result;
-            if (isZeroNow) result = "O";
-            else result = "X";
+            string result = "X";
+            if (isZeroNow)
+                result = "O";
 
             for (int i = 0; i < map.GetLength(0); i++)
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    if (map[i, j] == inputCellNumber) map[i, j] = result;
+                    if (map[i, j] == cellNumber)
+                    {
+                        map[i, j] = result;
+                        return map;
+                    }
                 }
             }
 
             return map;
         }
-        static bool InputContains(string[,] map, string input) // Проверить ввод пользователя на наличие существующего уже хода на поле 
+        static bool IsMoveCorrect(string[,] map, string input) // Проверить ввод пользователя на наличие существующего уже хода на поле 
         {
             for (int i = 0; i < map.GetLength(0); i++)
             {
