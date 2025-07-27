@@ -74,25 +74,26 @@ namespace ПРОЕКТ._Крестики_нолики
                 }
             }
         }
-        static bool IsStartGame() 
+        static bool IsStartGame()
         {
             Console.WriteLine("Крестики нолики");
             Console.WriteLine();
             Console.WriteLine("1. Начать игру");
             Console.WriteLine("2. Выйти из игры");
             Console.WriteLine();
+
             while (true)
             {
                 string input = Console.ReadLine();
-                if (!(input == "1" || input == "2"))
-                {
-                    Console.WriteLine("Неверный ввод. Пожалуйста, введите 1 или 2.");
-                    continue;
-                }
-                if (input == "2") return false;
-                break;
+
+                if (input == "1")
+                    return true;
+
+                if (input == "2")
+                    return false;
+
+                Console.WriteLine("Неверный ввод. Пожалуйста, введите 1 или 2.");
             }
-            return true;
         }
         static bool CheckWiner(string[,] map) // Проверить поле на наличие выигрыша 
         {
