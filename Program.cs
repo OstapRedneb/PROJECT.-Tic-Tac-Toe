@@ -33,7 +33,7 @@ namespace ПРОЕКТ._Крестики_нолики
                     Console.WriteLine("Введите цифру вашего хода:");
                     Console.WriteLine();
 
-                    string cellNumber = GetPlayerInput(map);
+                    string cellNumber = GetPlayerCellNumber(map);
 
                     map = MakeMove(map, cellNumber, isZeroNow);
 
@@ -55,6 +55,7 @@ namespace ПРОЕКТ._Крестики_нолики
                 }
             }
         }
+
         static bool IsStartGame()
         {
             Console.WriteLine("Крестики нолики");
@@ -76,7 +77,8 @@ namespace ПРОЕКТ._Крестики_нолики
                 Console.WriteLine("Неверный ввод. Пожалуйста, введите 1 или 2.");
             }
         }
-        static string GetPlayerInput(string[,] map) 
+
+        static string GetPlayerCellNumber(string[,] map) 
         {
             while (true)
             {
@@ -94,6 +96,7 @@ namespace ПРОЕКТ._Крестики_нолики
                 return input;
             }
         }
+
         static bool HasWinner(string[,] map) // Проверить поле на наличие выигрыша 
         {
             if (map[0, 0] == map[1, 1] && map[0, 0] == map[2, 2]) return true;
@@ -109,6 +112,7 @@ namespace ПРОЕКТ._Крестики_нолики
 
             return false;
         }
+
         static string[,] MakeMove(string[,] map, string cellNumber, bool isZeroNow) // Заменить в поле цифру на символ 
         {
             string mark = isZeroNow ? "O" : "X";
@@ -127,17 +131,19 @@ namespace ПРОЕКТ._Крестики_нолики
 
             return map;
         }
-        static bool IsMoveCorrect(string[,] map, string input) // Проверить ввод пользователя на наличие существующего уже хода на поле 
+
+        static bool IsMoveCorrect(string[,] map, string cellNumber) // Проверить ввод пользователя на наличие существующего уже хода на поле 
         {
             for (int i = 0; i < map.GetLength(0); i++)
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    if (map[i, j] == input) return true;
+                    if (map[i, j] == cellNumber) return true;
                 }
             }
             return false;
         }
+
         static void PrintMap(string[,] map) // Вывод поля через пробелы 
         {
             for (int i = 0; i < map.GetLength(0); i++) 
