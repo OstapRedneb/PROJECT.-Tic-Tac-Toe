@@ -20,12 +20,9 @@ namespace ПРОЕКТ._Крестики_нолики
                     {"7", "8", "9"} 
                 };
 
-                bool isZeroNow;
-
                 for (int move = 1; move <= 9; move++) 
                 {
-                    if (move % 2 != 0) isZeroNow = false;
-                    else isZeroNow = true;
+                    bool isZeroNow = move % 2 == 0;
 
                     Console.WriteLine(isZeroNow ? "Ходят нолики" : "Ходят крестики");
 
@@ -99,16 +96,24 @@ namespace ПРОЕКТ._Крестики_нолики
 
         static bool HasWinner(string[,] map) // Проверить поле на наличие выигрыша 
         {
-            if (map[0, 0] == map[1, 1] && map[0, 0] == map[2, 2]) return true;
-            if (map[0, 2] == map[1, 1] && map[0, 2] == map[2, 0]) return true;
+            if (map[0, 0] == map[1, 1] && map[0, 0] == map[2, 2]) 
+                return true;
+            if (map[0, 2] == map[1, 1] && map[0, 2] == map[2, 0]) 
+                return true;
 
-            if (map[0, 0] == map[0, 1] && map[0, 0] == map[0, 2]) return true;
-            if (map[1, 0] == map[1, 1] && map[1, 0] == map[1, 2]) return true;
-            if (map[2, 0] == map[2, 1] && map[2, 0] == map[2, 2]) return true;
+            if (map[0, 0] == map[0, 1] && map[0, 0] == map[0, 2]) 
+                return true;
+            if (map[1, 0] == map[1, 1] && map[1, 0] == map[1, 2]) 
+                return true;
+            if (map[2, 0] == map[2, 1] && map[2, 0] == map[2, 2]) 
+                return true;
 
-            if (map[0, 0] == map[1, 0] && map[0, 0] == map[2, 0]) return true;
-            if (map[0, 1] == map[1, 1] && map[0, 1] == map[2, 1]) return true;
-            if (map[0, 2] == map[1, 2] && map[0, 2] == map[2, 2]) return true;
+            if (map[0, 0] == map[1, 0] && map[0, 0] == map[2, 0]) 
+                return true;
+            if (map[0, 1] == map[1, 1] && map[0, 1] == map[2, 1]) 
+                return true;
+            if (map[0, 2] == map[1, 2] && map[0, 2] == map[2, 2]) 
+                return true;
 
             return false;
         }
@@ -138,7 +143,8 @@ namespace ПРОЕКТ._Крестики_нолики
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    if (map[i, j] == cellNumber) return true;
+                    if (map[i, j] == cellNumber) 
+                        return true;
                 }
             }
             return false;
@@ -150,8 +156,11 @@ namespace ПРОЕКТ._Крестики_нолики
             {
                 for (int j = 0; j < map.GetLength(1); j++) 
                 {
-                    if (map[i, j] == "X") Console.ForegroundColor = ConsoleColor.Red;
-                    if (map[i, j] == "O") Console.ForegroundColor = ConsoleColor.Blue;
+                    if (map[i, j] == "X") 
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    if (map[i, j] == "O") 
+                        Console.ForegroundColor = ConsoleColor.Blue;
+
                     Console.Write(map[i, j] + " ");
                     Console.ResetColor();
                 }
