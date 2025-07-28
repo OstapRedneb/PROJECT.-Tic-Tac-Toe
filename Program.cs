@@ -8,7 +8,8 @@ namespace ПРОЕКТ._Крестики_нолики
         {
             while (true)
             {
-                if (!IsStartGame()) break;
+                if (!IsStartGame()) 
+                    break;
 
                 Console.WriteLine();
 
@@ -19,36 +20,28 @@ namespace ПРОЕКТ._Крестики_нолики
                     {"7", "8", "9"} 
                 };
 
-                bool isZerowNow;
+                bool isZeroNow;
 
                 for (int move = 1; move <= 9; move++) 
                 {
-                    if (move % 2 != 0) isZerowNow = false;
-                    else isZerowNow = true;
-                    
-                    if (isZerowNow) Console.WriteLine("Ходят нолики");
-                    else Console.WriteLine("Ходят крестики");
+                    if (move % 2 != 0) isZeroNow = false;
+                    else isZeroNow = true;
+
+                    Console.WriteLine(isZeroNow ? "Ходят нолики" : "Ходят крестики");
 
                     PrintMap(map);
                     Console.WriteLine("Введите цифру вашего хода:");
                     Console.WriteLine();
 
-                    string input = GetPlayerInput(map);
+                    string cellNumber = GetPlayerInput(map);
 
-                    map = MakeTheMove(map, input, isZerowNow);
+                    map = MakeMove(map, cellNumber, isZeroNow);
 
-                    if (IsExistWinner(map)) 
+                    if (HasWinner(map)) 
                     {
                         PrintMap(map);
 
-                        if (isZerowNow)
-                        {
-                            Console.WriteLine("Нолики победили!");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Крестики победили!");
-                        }
+                        Console.WriteLine(isZeroNow ? "Нолики победили!" : "Крестики победили!");
 
                         Console.WriteLine();
                         break;
@@ -101,7 +94,7 @@ namespace ПРОЕКТ._Крестики_нолики
                 return input;
             }
         }
-        static bool IsExistWinner(string[,] map) // Проверить поле на наличие выигрыша 
+        static bool HasWinner(string[,] map) // Проверить поле на наличие выигрыша 
         {
             if (map[0, 0] == map[1, 1] && map[0, 0] == map[2, 2]) return true;
             if (map[0, 2] == map[1, 1] && map[0, 2] == map[2, 0]) return true;
@@ -116,11 +109,9 @@ namespace ПРОЕКТ._Крестики_нолики
 
             return false;
         }
-        static string[,] MakeTheMove(string[,] map, string cellNumber, bool isZeroNow) // Заменить в поле цифру на символ 
+        static string[,] MakeMove(string[,] map, string cellNumber, bool isZeroNow) // Заменить в поле цифру на символ 
         {
-            string result = "X";
-            if (isZeroNow)
-                result = "O";
+            string mark = isZeroNow ? "O" : "X";
 
             for (int i = 0; i < map.GetLength(0); i++)
             {
@@ -128,7 +119,7 @@ namespace ПРОЕКТ._Крестики_нолики
                 {
                     if (map[i, j] == cellNumber)
                     {
-                        map[i, j] = result;
+                        map[i, j] = mark;
                         return map;
                     }
                 }
