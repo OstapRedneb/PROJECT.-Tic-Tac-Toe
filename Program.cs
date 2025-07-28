@@ -6,75 +6,45 @@ namespace ПРОЕКТ._Крестики_нолики
     {
         static void Main(string[] args) // Игра
         {
-            while (true)
+            string[,] map = new string[3, 3] 
             {
-                if (!IsStartGame()) 
-                    break;
+                {"1", "2", "3"}, 
+                {"4", "5", "6"}, 
+                {"7", "8", "9"} 
+            };
 
+            for (int move = 1; move <= 9; move++) 
+            {
+                bool isZeroNow = move % 2 == 0;
+
+                Console.WriteLine(isZeroNow ? "Ходят нолики" : "Ходят крестики");
+
+                PrintMap(map);
+                Console.WriteLine("Введите цифру вашего хода:");
                 Console.WriteLine();
 
-                string[,] map = new string[3, 3] 
+                string cellNumber = GetPlayerCellNumber(map);
+
+                map = MakeMove(map, cellNumber, isZeroNow);
+
+                if (HasWinner(map)) 
                 {
-                    {"1", "2", "3"}, 
-                    {"4", "5", "6"}, 
-                    {"7", "8", "9"} 
-                };
-
-                for (int move = 1; move <= 9; move++) 
-                {
-                    bool isZeroNow = move % 2 == 0;
-
-                    Console.WriteLine(isZeroNow ? "Ходят нолики" : "Ходят крестики");
-
                     PrintMap(map);
-                    Console.WriteLine("Введите цифру вашего хода:");
+
+                    Console.WriteLine(isZeroNow ? "Нолики победили!" : "Крестики победили!");
+
                     Console.WriteLine();
 
-                    string cellNumber = GetPlayerCellNumber(map);
-
-                    map = MakeMove(map, cellNumber, isZeroNow);
-
-                    if (HasWinner(map)) 
-                    {
-                        PrintMap(map);
-
-                        Console.WriteLine(isZeroNow ? "Нолики победили!" : "Крестики победили!");
-
-                        Console.WriteLine();
-                        break;
-                    }
-                    if (move == 9)
-                    {
-                        PrintMap(map);
-                        Console.WriteLine("Ничья!");
-                    }
-                    Console.WriteLine();
+                    break;
                 }
+                if (move == 9)
+                {
+                    PrintMap(map);
+                    Console.WriteLine("Ничья!");
+                }
+                Console.WriteLine();
             }
         }
-
-        static bool IsStartGame()
-        {
-            Console.WriteLine("Крестики нолики");
-            Console.WriteLine();
-            Console.WriteLine("1. Начать игру");
-            Console.WriteLine("2. Выйти из игры");
-            Console.WriteLine();
-
-            while (true)
-            {
-                string input = Console.ReadLine();
-
-                if (input == "1")
-                    return true;
-
-                if (input == "2")
-                    return false;
-
-                Console.WriteLine("Неверный ввод. Пожалуйста, введите 1 или 2.");
-            }
-        }
-
         static string GetPlayerCellNumber(string[,] map) 
         {
             while (true)
