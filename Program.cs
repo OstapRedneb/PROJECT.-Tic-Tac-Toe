@@ -33,7 +33,7 @@ namespace ПРОЕКТ._Крестики_нолики
                     Console.WriteLine("Введите цифру вашего хода:");
                     Console.WriteLine();
 
-                    string input = GetPlayerInput();
+                    string input = GetPlayerInput(map);
 
                     map = MakeTheMove(map, input, isZerowNow);
 
@@ -83,7 +83,7 @@ namespace ПРОЕКТ._Крестики_нолики
                 Console.WriteLine("Неверный ввод. Пожалуйста, введите 1 или 2.");
             }
         }
-        static string GetPlayerInput() 
+        static string GetPlayerInput(string[,] map) 
         {
             while (true)
             {
