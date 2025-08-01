@@ -6,11 +6,11 @@ namespace ПРОЕКТ._Крестики_нолики
     {
         static void Main(string[] args) // Игра
         {
-            string[,] map = new string[3, 3] 
+            string[,] map = new string[3, 3]
             {
-                {"1", "2", "3"}, 
-                {"4", "5", "6"}, 
-                {"7", "8", "9"} 
+                {"1", "2", "3"},
+                {"4", "5", "6"},
+                {"7", "8", "9"}
             };
 
             for (int move = 1; move <= 9; move++) 
@@ -29,22 +29,32 @@ namespace ПРОЕКТ._Крестики_нолики
 
                 if (HasWinner(map)) 
                 {
+                    Console.WriteLine();
+
                     PrintMap(map);
 
-                    Console.WriteLine(isZeroNow ? "Нолики победили!" : "Крестики победили!");
-
                     Console.WriteLine();
+
+                    Console.WriteLine(isZeroNow ? "Нолики победили!" : "Крестики победили!");
 
                     break;
                 }
                 if (move == 9)
                 {
+                    Console.WriteLine();
+
                     PrintMap(map);
+
+                    Console.WriteLine();
+
                     Console.WriteLine("Ничья!");
+
+                    break;
                 }
                 Console.WriteLine();
             }
         }
+
         static string GetPlayerCellNumber(string[,] map) 
         {
             while (true)
