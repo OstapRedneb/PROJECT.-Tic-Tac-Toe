@@ -13,21 +13,20 @@ namespace ПРОЕКТ._Крестики_нолики
                 {"7", "8", "9"}
             };
 
-            for (int move = 1; move <= 9; move++) 
+            for (int move = 1; move <= 9; move++)
             {
                 bool isZeroNow = move % 2 == 0;
-
                 Console.WriteLine(isZeroNow ? "Ходят нолики" : "Ходят крестики");
 
                 PrintMap(map);
+
                 Console.WriteLine("Введите цифру вашего хода:");
                 Console.WriteLine();
-
                 string cellNumber = GetPlayerCellNumber(map);
 
                 map = MakeMove(map, cellNumber, isZeroNow);
 
-                if (HasWinner(map)) 
+                if (HasWinner(map))
                 {
                     Console.WriteLine();
 
@@ -37,25 +36,21 @@ namespace ПРОЕКТ._Крестики_нолики
 
                     Console.WriteLine(isZeroNow ? "Нолики победили!" : "Крестики победили!");
 
-                    break;
+                    return;
                 }
-                if (move == 9)
-                {
-                    Console.WriteLine();
-
-                    PrintMap(map);
-
-                    Console.WriteLine();
-
-                    Console.WriteLine("Ничья!");
-
-                    break;
-                }
-                Console.WriteLine();
             }
+
+            Console.WriteLine();
+
+            PrintMap(map);
+
+            Console.WriteLine();
+
+            Console.WriteLine("Ничья!");
+
         }
 
-        static string GetPlayerCellNumber(string[,] map) 
+        static string GetPlayerCellNumber(string[,] map)
         {
             while (true)
             {
@@ -76,23 +71,23 @@ namespace ПРОЕКТ._Крестики_нолики
 
         static bool HasWinner(string[,] map) // Проверить поле на наличие выигрыша 
         {
-            if (map[0, 0] == map[1, 1] && map[0, 0] == map[2, 2]) 
+            if (map[0, 0] == map[1, 1] && map[0, 0] == map[2, 2])
                 return true;
-            if (map[0, 2] == map[1, 1] && map[0, 2] == map[2, 0]) 
-                return true;
-
-            if (map[0, 0] == map[0, 1] && map[0, 0] == map[0, 2]) 
-                return true;
-            if (map[1, 0] == map[1, 1] && map[1, 0] == map[1, 2]) 
-                return true;
-            if (map[2, 0] == map[2, 1] && map[2, 0] == map[2, 2]) 
+            if (map[0, 2] == map[1, 1] && map[0, 2] == map[2, 0])
                 return true;
 
-            if (map[0, 0] == map[1, 0] && map[0, 0] == map[2, 0]) 
+            if (map[0, 0] == map[0, 1] && map[0, 0] == map[0, 2])
                 return true;
-            if (map[0, 1] == map[1, 1] && map[0, 1] == map[2, 1]) 
+            if (map[1, 0] == map[1, 1] && map[1, 0] == map[1, 2])
                 return true;
-            if (map[0, 2] == map[1, 2] && map[0, 2] == map[2, 2]) 
+            if (map[2, 0] == map[2, 1] && map[2, 0] == map[2, 2])
+                return true;
+
+            if (map[0, 0] == map[1, 0] && map[0, 0] == map[2, 0])
+                return true;
+            if (map[0, 1] == map[1, 1] && map[0, 1] == map[2, 1])
+                return true;
+            if (map[0, 2] == map[1, 2] && map[0, 2] == map[2, 2])
                 return true;
 
             return false;
@@ -123,7 +118,7 @@ namespace ПРОЕКТ._Крестики_нолики
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    if (map[i, j] == cellNumber) 
+                    if (map[i, j] == cellNumber)
                         return true;
                 }
             }
@@ -132,13 +127,13 @@ namespace ПРОЕКТ._Крестики_нолики
 
         static void PrintMap(string[,] map) // Вывод поля через пробелы 
         {
-            for (int i = 0; i < map.GetLength(0); i++) 
+            for (int i = 0; i < map.GetLength(0); i++)
             {
-                for (int j = 0; j < map.GetLength(1); j++) 
+                for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    if (map[i, j] == "X") 
+                    if (map[i, j] == "X")
                         Console.ForegroundColor = ConsoleColor.Red;
-                    if (map[i, j] == "O") 
+                    if (map[i, j] == "O")
                         Console.ForegroundColor = ConsoleColor.Blue;
 
                     Console.Write(map[i, j] + " ");
